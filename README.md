@@ -34,7 +34,8 @@ The solution is built using a multi-agent architecture powered by Amazon Bedrock
 - **AWS CloudFormation**: Infrastructure as Code deployment
 
 ### N8N Flow Architecture
-<img width="1665" height="421" alt="image" src="https://github.com/user-attachments/assets/b6862bee-7d49-4492-83f5-df395602898e" />
+<img width="1648" height="352" alt="image" src="https://github.com/user-attachments/assets/a1145590-e68e-495e-9b19-d022b0c26a11" />
+
 
 #### Flow Node Descriptions:
 
