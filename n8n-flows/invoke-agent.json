@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -592,
+        16
+      ],
+      "id": "63681115-afc4-43c0-9a6a-1c95c1ff0dae",
+      "name": "When chat message received",
+      "webhookId": "eab22a84-378c-41ce-a17d-51d94dff8eb6"
+    },
+    {
+      "parameters": {
+        "function": "arn:aws:lambda:us-west-2:010928195068:function:n8n-invoke-agent",
+        "payload": "={\n  \"sessionId\": \"{{ $json.sessionId }}\",\n  \"inputText\": \"{{ $json.chatInput }}\"\n}"
+      },
+      "type": "n8n-nodes-base.awsLambda",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        16
+      ],
+      "id": "ca5fd312-3e41-4ae3-87b2-067a355b2dca",
+      "name": "AWS Lambda",
+      "credentials": {
+        "aws": {
+          "id": "BKfNEJ1UOqSXSXXR",
+          "name": "agent-workshop"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n    json: {\n        text: $input.first().json.result.body\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        16
+      ],
+      "id": "a44b1659-fbd9-4f40-9032-e1e283949770",
+      "name": "Code"
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AWS Lambda",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AWS Lambda": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "127f904b4aede39e35a55b4c6a083d0333f5524cb587b4740a15ebea0b7c42d6"
+  }
+}
